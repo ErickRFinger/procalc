@@ -1,4 +1,4 @@
-const CACHE_NAME = 'calcpro-v2';
+const CACHE_NAME = 'calcpro-v3';
 const ASSETS_TO_CACHE = [
   '/',
   '/index.html',
@@ -8,6 +8,7 @@ const ASSETS_TO_CACHE = [
 
 // O Service Worker intercepta o arquivo e o guarda na primeira carga
 self.addEventListener('install', (event) => {
+  self.skipWaiting(); // <--- Força a atualização no celular sem precisar fechar o app
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
       console.log('Cache aberto: Instalando arquivos mestre.');
@@ -42,6 +43,6 @@ self.addEventListener('activate', (event) => {
           }
         })
       );
-    })
+    }).then(() => self.clients.claim())
   );
 });
