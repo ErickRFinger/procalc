@@ -321,16 +321,16 @@ document.addEventListener('DOMContentLoaded', () => {
         
         loginError.style.display = 'none';
         
-        // Regex to extract the number from strings like "admin42" and "password42"
+        // Regex to extract the number from strings like "admin142" and "senha142"
         const uMatch = u.match(/^admin(\d+)$/);
-        const pMatch = p.match(/^password(\d+)$/);
+        const pMatch = p.match(/^senha(\d+)$/);
         
         if (uMatch && pMatch) {
             const numU = parseInt(uMatch[1]);
             const numP = parseInt(pMatch[1]);
             
-            // Validate limits (1 to 100) and if the numbers match
-            if (numU >= 1 && numU <= 100 && numU === numP) {
+            // Validate limits (100 to 200) and if the numbers match
+            if (numU >= 100 && numU <= 200 && numU === numP) {
                 // Success!
                 localStorage.setItem('calcpro_logged', 'true');
                 loginOverlay.style.opacity = '0';
