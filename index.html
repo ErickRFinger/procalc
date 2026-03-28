@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadoras Úteis PRO</title>
+    <meta name="description" content="Sua central de cálculos rápidos do dia a dia.">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#16181f">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="apple-touch-icon" href="https://ui-avatars.com/api/?name=CP&background=7928ca&color=fff&size=192">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ff0080' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><rect x='3' y='3' width='18' height='18' rx='2' ry='2'></rect><line x1='9' y1='9' x2='15' y2='15'></line><line x1='15' y1='9' x2='9' y2='15'></line></svg>">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="bg-shape shape-1"></div>
+    <div class="bg-shape shape-2"></div>
+    <div class="bg-shape shape-3"></div>
+    
+    <!-- LOGIN OVERLAY -->
+    <div id="login-overlay" class="login-overlay">
+        <div class="login-card">
+            <div class="login-logo">
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="url(#gradient)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="9" y1="9" x2="15" y2="15"></line><line x1="15" y1="9" x2="9" y2="15"></line>
+                </svg>
+            </div>
+            <h2>CalcPro Acesso</h2>
+            <p>Insira suas credenciais para desbloquear as ferramentas.</p>
+            <div id="login-error" class="login-error">Acesso Negado. Usuário ou senha incorretos.</div>
+            <div class="input-group" style="margin-top: 1.5rem">
+                <input type="text" id="login-user" placeholder=" " autocomplete="off">
+                <label>Usuário (ex: admin1)</label>
+            </div>
+            <div class="input-group" style="margin-top: 1.5rem">
+                <input type="password" id="login-pass" placeholder=" ">
+                <label>Senha</label>
+            </div>
+            <button id="login-btn" class="btn-clear block-btn" style="margin-top: 2rem; background: var(--accent-gradient); color: #fff; border: none; padding: 1.25rem; font-size: 1.1rem; box-shadow: var(--glow-shadow);">Acessar Sistema</button>
+        </div>
+    </div>
+
+    <div class="app-layout" id="app-wrapper" style="display: none;">
+        <!-- Sidebar Navigation -->
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="url(#gradient)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <defs><linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#7928ca"/><stop offset="100%" stop-color="#ff0080"/></linearGradient></defs>
+                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="9" y1="9" x2="15" y2="15"></line><line x1="15" y1="9" x2="9" y2="15"></line>
+                    </svg>
+                    <span>CalcPro</span>
+                </div>
+            </div>
+            <div class="nav-menu">
+                <button class="nav-btn active" data-tab="regra3">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path></svg>
+                    Regra de 3
+                </button>
+                <button class="nav-btn" data-tab="porcentagem">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="5" x2="5" y2="19"></line><circle cx="6.5" cy="6.5" r="2.5"></circle><circle cx="17.5" cy="17.5" r="2.5"></circle></svg>
+                    Porcentagem
+                </button>
+                <button class="nav-btn" data-tab="mercado">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                    Qual Compensa?
+                </button>
+                <button class="nav-btn" data-tab="divisao">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                    Dividir Conta
+                </button>
+                <button class="nav-btn" data-tab="juros">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg>
+                    Juros Compostos
+                </button>
+                <button class="nav-btn" data-tab="imc">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line></svg>
+                    IMC
+                </button>
+                <button class="nav-btn" data-tab="churras">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+                    Churrasco
+                </button>
+                <button class="nav-btn" data-tab="combustivel">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 22v-8c0-1.1.9-2 2-2h14a2 2 0 0 1 2 2v8"></path><path d="M6 12v-4a6 6 0 0 1 12 0v4"></path></svg>
+                    Combustível
+                </button>
+                <button class="nav-btn" data-tab="horas">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                    Horas Trab.
+                </button>
+                <button class="nav-btn" data-tab="assinaturas">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+                    Assinaturas
+                </button>
+            </div>
+            
+            <div style="flex: 1"></div>
+            <button class="nav-btn logout-btn" id="logout-btn">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+                Sair/Esquecer Login
+            </button>
+        </nav>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            
+            <!-- TAB: REGRA DE 3 -->
+            <div id="tab-regra3" class="tab-pane active">
+                <header>
+                    <div class="tag">MATEMÁTICA</div>
+                    <h1>Regra de Três</h1>
+                    <p>Calcule proporções de forma rápida e elegante.</p>
+                </header>
+
+                <div class="controls">
+                    <span class="toggle-label active" id="label-direta">Direta</span>
+                    <label class="switch">
+                        <input type="checkbox" id="tipo-regra">
+                        <span class="slider round"></span>
+                    </label>
+                    <span class="toggle-label" id="label-inversa">Inversa</span>
+                </div>
+
+                <div class="calculator-card">
+                    <div class="row arrow-row">
+                        <div class="input-group">
+                            <input type="number" id="valor-a" placeholder=" " autocomplete="off" step="any">
+                            <label>Valor A</label>
+                        </div>
+                        <div class="relation">→</div>
+                        <div class="input-group">
+                            <input type="number" id="valor-b" placeholder=" " autocomplete="off" step="any">
+                            <label>Valor B</label>
+                        </div>
+                    </div>
+                    
+                    <div class="connector-row">
+                        <div class="connector-line"></div>
+                        <div class="connector-line"></div>
+                    </div>
+
+                    <div class="row arrow-row">
+                        <div class="input-group">
+                            <input type="number" id="valor-c" placeholder=" " autocomplete="off" step="any">
+                            <label>Valor C</label>
+                        </div>
+                        <div class="relation">→</div>
+                        <div class="input-group result-group">
+                            <input type="text" id="valor-x" placeholder="X" readonly>
+                            <label class="result-label">Resultado</label>
+                            <div class="glow-effect"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="formula-card">
+                    <span id="formula-text">X = (B × C) ÷ A</span>
+                </div>
+                <button id="clear-btn" class="btn-clear block-btn">Limpar Tudo</button>
+            </div>
+
+            <!-- TAB: PORCENTAGEM -->
+            <div id="tab-porcentagem" class="tab-pane">
+                <header>
+                    <div class="tag">FINANÇAS</div>
+                    <h1>Porcentagem</h1>
+                    <p>O pesadelo de muita gente, resolvido rápido.</p>
+                </header>
+
+                <div class="calculator-card calc-variations">
+                    <!-- Variacao 1 -->
+                    <div class="percent-row">
+                        <span>Quanto é</span>
+                        <div class="mini-input"><input type="number" id="perc-v1-a" placeholder="15"></div>
+                        <span>% de</span>
+                        <div class="mini-input"><input type="number" id="perc-v1-b" placeholder="200"></div>
+                        <span>?</span>
+                        <div class="res-box" id="perc-res-1">Resultado</div>
+                    </div>
+
+                    <hr class="divider">
+
+                    <!-- Variacao 2 -->
+                    <div class="percent-row">
+                        <span>O valor</span>
+                        <div class="mini-input"><input type="number" id="perc-v2-a" placeholder="50"></div>
+                        <span>é qual % de</span>
+                        <div class="mini-input"><input type="number" id="perc-v2-b" placeholder="250"></div>
+                        <span>?</span>
+                        <div class="res-box" id="perc-res-2">Resultado</div>
+                    </div>
+
+                    <hr class="divider">
+
+                    <!-- Variacao 3 -->
+                    <div class="percent-row">
+                        <span>O valor original é</span>
+                        <div class="mini-input"><input type="number" id="perc-v3-a" placeholder="100"></div>
+                        <span>com desconto/aumento de</span>
+                        <div class="mini-input"><input type="number" id="perc-v3-b" placeholder="20"></div>
+                        <span>%</span>
+                        <div class="res-box" id="perc-res-3">Resultado</div>
+                    </div>
+                </div>
+                <button class="btn-clear block-btn perc-clear" onclick="limparPorcentagem()">Limpar Tudo</button>
+            </div>
+
+            <!-- TAB: QUAL COMPENSA MAIS -->
+            <div id="tab-mercado" class="tab-pane">
+                <header>
+                    <div class="tag">ECONOMIA</div>
+                    <h1>Qual Compensa?</h1>
+                    <p>Descubra qual produto no mercado vale a pena pelo peso/tamanho.</p>
+                </header>
+
+                <div class="vs-container">
+                    <!-- Produto A -->
+                    <div class="product-card" id="card-prod-a">
+                        <h3>Produto A</h3>
+                        <div class="input-group">
+                            <input type="number" id="merc-preco-a" placeholder=" " step="any">
+                            <label>Preço (R$)</label>
+                        </div>
+                        <div class="input-group mt-3">
+                            <input type="number" id="merc-peso-a" placeholder=" " step="any">
+                            <label>Peso/Volume (Ex: 350)</label>
+                        </div>
+                        <div class="prod-res">R$ <span id="merc-res-a">0.00</span> / un</div>
+                    </div>
+
+                    <div class="vs-badge">VS</div>
+
+                    <!-- Produto B -->
+                    <div class="product-card" id="card-prod-b">
+                        <h3>Produto B</h3>
+                        <div class="input-group">
+                            <input type="number" id="merc-preco-b" placeholder=" " step="any">
+                            <label>Preço (R$)</label>
+                        </div>
+                        <div class="input-group mt-3">
+                            <input type="number" id="merc-peso-b" placeholder=" " step="any">
+                            <label>Peso/Volume (Ex: 500)</label>
+                        </div>
+                        <div class="prod-res">R$ <span id="merc-res-b">0.00</span> / un</div>
+                    </div>
+                </div>
+
+                <div class="winner-card" id="winner-card">
+                    Preencha os valores para descobrir o mais barato.
+                </div>
+            </div>
+
+            <!-- TAB: DIVIDIR CONTA -->
+            <div id="tab-divisao" class="tab-pane">
+                <header>
+                    <div class="tag">AMIGOS</div>
+                    <h1>Dividir a Conta</h1>
+                    <p>Contas de restaurante claras sem constrangimento.</p>
+                </header>
+
+                <div class="calculator-card split-grid">
+                    <div class="input-group">
+                        <input type="number" id="div-total" placeholder=" " step="any">
+                        <label>Valor Total da Conta (R$)</label>
+                    </div>
+                    
+                    <div class="input-group">
+                        <input type="number" id="div-gorjeta" placeholder=" " value="10" step="any">
+                        <label>Gorjeta (%)</label>
+                    </div>
+
+                    <div class="input-group" style="grid-column: 1 / -1;">
+                        <input type="number" id="div-pessoas" placeholder=" " value="2">
+                        <label>Dividir por quantas pessoas?</label>
+                    </div>
+                </div>
+
+                <div class="result-receipt">
+                    <div class="receipt-row">
+                        <span>Subtotal:</span>
+                        <span id="div-res-sub">R$ 0.00</span>
+                    </div>
+                    <div class="receipt-row">
+                        <span>Gorjeta:</span>
+                        <span id="div-res-gorjeta">R$ 0.00</span>
+                    </div>
+                    <div class="receipt-row total">
+                        <span>Você paga:</span>
+                        <span id="div-res-ind">R$ 0.00</span>
+                    </div>
+                    <div class="receipt-row subtext">
+                        <span>Total c/ Gorjeta: <span id="div-res-total">R$ 0.00</span></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB: JUROS COMPOSTOS -->
+            <div id="tab-juros" class="tab-pane">
+                <header>
+                    <div class="tag">INVESTIMENTOS</div>
+                    <h1>Juros Compostos</h1>
+                    <p>O poder dos juros aliados ao tempo.</p>
+                </header>
+
+                <div class="calculator-card juros-grid">
+                    <div class="input-group">
+                        <input type="number" id="jur-inicial" placeholder=" " step="any">
+                        <label>Capital Inicial (R$)</label>
+                    </div>
+                    <div class="input-group">
+                        <input type="number" id="jur-mensal" placeholder=" " step="any">
+                        <label>Aporte Mensal (R$)</label>
+                    </div>
+                    <div class="input-group">
+                        <input type="number" id="jur-taxa" placeholder=" " step="any">
+                        <label>Taxa Anual (%)</label>
+                    </div>
+                    <div class="input-group">
+                        <input type="number" id="jur-tempo" placeholder=" ">
+                        <label>Tempo (Anos)</label>
+                    </div>
+                </div>
+
+                <div class="result-receipt juros-result">
+                    <div class="receipt-row">
+                        <span>Total Investido:</span>
+                        <span id="jur-res-investido">R$ 0.00</span>
+                    </div>
+                    <div class="receipt-row">
+                        <span>Total em Juros Ganhos:</span>
+                        <span id="jur-res-rendimento" class="text-green">R$ 0.00</span>
+                    </div>
+                    <div class="receipt-row total">
+                        <span>Montante Final:</span>
+                        <span id="jur-res-total">R$ 0.00</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB: IMC -->
+            <div id="tab-imc" class="tab-pane">
+                <header>
+                    <div class="tag">SAÚDE</div>
+                    <h1>Calculadora de IMC</h1>
+                    <p>Índice de Massa Corporal.</p>
+                </header>
+
+                <div class="calculator-card split-grid">
+                    <div class="input-group">
+                        <input type="number" id="imc-peso" placeholder=" " step="any">
+                        <label>Peso (KG)</label>
+                    </div>
+                    
+                    <div class="input-group">
+                        <input type="number" id="imc-altura" placeholder=" " step="any">
+                        <label>Altura (M) Ex: 1.75</label>
+                    </div>
+                </div>
+
+                <div class="imc-result-container">
+                    <div class="imc-circle" id="imc-circle">0.0</div>
+                    <div class="imc-status" id="imc-status">Aguardando dados...</div>
+                </div>
+            </div>
+
+            <!-- TAB: CHURRASCO -->
+            <div id="tab-churras" class="tab-pane">
+                <header>
+                    <div class="tag">EVENTOS</div>
+                    <h1>Churrasco</h1>
+                    <p>Calcule a quantidade exata para ninguém passar fome (nem sede).</p>
+                </header>
+
+                <div class="calculator-card split-grid">
+                    <div class="input-group">
+                        <input type="number" id="ch-homens" placeholder=" " value="0" min="0">
+                        <label>Homens</label>
+                    </div>
+                    <div class="input-group">
+                        <input type="number" id="ch-mulheres" placeholder=" " value="0" min="0">
+                        <label>Mulheres</label>
+                    </div>
+                    <div class="input-group" style="grid-column: 1 / -1;">
+                        <input type="number" id="ch-criancas" placeholder=" " value="0" min="0">
+                        <label>Crianças (não bebem álcool)</label>
+                    </div>
+                </div>
+                
+                <div class="controls" style="margin-top: -1rem; margin-bottom: 0.5rem">
+                    <span class="toggle-label active" style="font-size: 0.8rem">Com Álcool</span>
+                    <label class="switch">
+                        <input type="checkbox" id="ch-alcool">
+                        <span class="slider round"></span>
+                    </label>
+                    <span class="toggle-label" style="font-size: 0.8rem">Sem Álcool</span>
+                </div>
+
+                <div class="result-receipt juros-result">
+                    <div class="receipt-row">
+                        <span>🥩 Carnes (Boi/Frango/Linguiça):</span>
+                        <span id="ch-res-carne" class="text-green">0 KG</span>
+                    </div>
+                    <div class="receipt-row">
+                        <span>🥖 Acompanhamentos (Pão/Farinha):</span>
+                        <span id="ch-res-acomp">0 KG</span>
+                    </div>
+                    <div class="receipt-row">
+                        <span>🍺 Cerveja:</span>
+                        <span id="ch-res-cerveja" class="text-green">0 L</span>
+                    </div>
+                    <div class="receipt-row">
+                        <span>🥤 Água e Refri:</span>
+                        <span id="ch-res-refri">0 L</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB: COMBUSTÍVEL -->
+            <div id="tab-combustivel" class="tab-pane">
+                <header>
+                    <div class="tag">VEÍCULOS</div>
+                    <h1>Combustível</h1>
+                    <p>Qual compensa abastecer e quanto vai custar a viagem.</p>
+                </header>
+
+                <div class="calculator-card split-grid" style="padding-bottom: 1rem; border-bottom: 1px solid rgba(255,255,255,0.1)">
+                    <div class="input-group">
+                        <input type="number" id="cb-alcool" placeholder=" " step="any">
+                        <label>Preço Álcool (R$)</label>
+                    </div>
+                    <div class="input-group">
+                        <input type="number" id="cb-gasolina" placeholder=" " step="any">
+                        <label>Preço Gasolina (R$)</label>
+                    </div>
+                    <div class="winner-card" id="cb-winner" style="grid-column: 1 / -1; margin-top: 0">
+                        Aguardando preços...
+                    </div>
+                </div>
+
+                <h3 style="font-size: 1.1rem; text-align: center; margin-top: 0.5rem">Custo da Viagem</h3>
+                <div class="calculator-card split-grid">
+                    <div class="input-group">
+                        <input type="number" id="cb-dist" placeholder=" " step="any">
+                        <label>Distância (KM)</label>
+                    </div>
+                    <div class="input-group">
+                        <input type="number" id="cb-kml" placeholder=" " step="any">
+                        <label>Consumo (KM/L)</label>
+                    </div>
+                    <div class="input-group" style="grid-column: 1 / -1;">
+                        <input type="number" id="cb-preco" placeholder=" " step="any">
+                        <label>Preço do Combustível a usar (R$)</label>
+                    </div>
+                </div>
+                <div class="prod-res" style="text-align: center; margin-top: 0.5rem">
+                    A viagem vai custar: <br> <span id="cb-custo" style="font-size: 1.8rem; font-weight: 700; color: var(--accent-blue)">R$ 0.00</span>
+                </div>
+            </div>
+
+            <!-- TAB: HORAS -->
+            <div id="tab-horas" class="tab-pane">
+                <header>
+                    <div class="tag">TRABALHO</div>
+                    <h1>Horas Trabalhadas</h1>
+                    <p>Calcule sua jornada líquida do dia.</p>
+                </header>
+
+                <div class="calculator-card split-grid">
+                    <div class="input-group">
+                        <input type="time" id="hr-entrada" value="08:00">
+                        <label>Entrada</label>
+                    </div>
+                    <div class="input-group">
+                        <input type="time" id="hr-ida-almoco" value="12:00">
+                        <label>Ida Almoço</label>
+                    </div>
+                    <div class="input-group">
+                        <input type="time" id="hr-volta-almoco" value="13:00">
+                        <label>Volta Almoço</label>
+                    </div>
+                    <div class="input-group">
+                        <input type="time" id="hr-saida" value="18:00">
+                        <label>Saída (Fim)</label>
+                    </div>
+                </div>
+
+                <div class="result-receipt" style="text-align: center; padding: 2rem">
+                    <span style="color: var(--text-secondary); font-size: 1.1rem">Total trabalhado:</span>
+                    <span id="hr-res" style="font-size: 3rem; font-weight: 800; background: var(--accent-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">08h 00m</span>
+                </div>
+            </div>
+
+            <!-- TAB: ASSINATURAS -->
+            <div id="tab-assinaturas" class="tab-pane">
+                <header>
+                    <div class="tag">SANGUESSUGAS</div>
+                    <h1>Assinaturas Mensais</h1>
+                    <p>Aquele lanchinho de R$ 30 que dói no fim do ano.</p>
+                </header>
+
+                <div id="subs-list" style="display: flex; flex-direction: column; gap: 1rem;">
+                    <!-- Lista injetada via JS -->
+                </div>
+                
+                <button id="add-sub-btn" class="btn-clear block-btn" style="border-style: dashed">+ Adicionar Lanchinho/Assinatura</button>
+
+                <div class="result-receipt" style="margin-top: 1rem; border-color: rgba(255,0,128,0.3); background: rgba(255,0,128,0.05)">
+                    <div class="receipt-row total">
+                        <span style="color: #ff0080">Gasto Anual:</span>
+                        <span id="sub-res-anual" style="color: #ff0080">R$ 0.00</span>
+                    </div>
+                    <div class="receipt-row subtext">
+                        <span>Isso daria pra pagar aquela viagem... (Gasto Mensal: <span id="sub-res-mensal">R$ 0.00</span>)</span>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- Mobile Nav Overlay trigger -->
+    <div class="mobile-nav-toggle" id="mobile-toggle" style="display: none;">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
